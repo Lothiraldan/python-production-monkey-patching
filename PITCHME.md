@@ -137,6 +137,8 @@ There are some hacks around altering ```__code__``` attributes and retrieving re
 
 https://www.python.org/dev/peps/pep-0302/
 
+#VSLIDE
+
 ## Python 2
 
 ```python
@@ -156,6 +158,8 @@ class Finder(object):
 
 sys.meta_path.insert(0, Finder())
 ```
+
+#VSLIDE
 
 ## Python 3
 
