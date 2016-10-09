@@ -10,15 +10,15 @@ Python hot monkey-patching.
 
  * Python developer
 
-<img src="images/me.png" widht="448" height="448"/>
+<img src="images/me.png" widht="400" height="400"/>
 
 #VSLIDE
 
 ## Sqreen.io
 
-I work at sqreen.io where I bring security to every developer.
+I work at sqreen.io where we bring security to every developer.
 
-<img src="images/sqreen.png" widht="448" height="448"/>
+<img src="images/sqreen.png" widht="400" height="400"/>
 
 #HSLIDE
 
