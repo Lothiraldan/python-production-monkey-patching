@@ -119,9 +119,37 @@ FUNCTION_WRAPPED
 
 ## Explanation
 
-Using setattr, we only replace the name of the function / method / class in the module. If someone get another reference (with `from module import function`), we will not replace it.
+setattr only replace the name of the function / method / class in the module. If someone get another reference (with `from module import function`), we will not replace it.
+
+#VSLIDE
+
+## Hacks
+
+There are some hacks around altering ```__code__``` attributes and retrieving references with `gc.get_referrers` but they're hacks and CPython specifics.
 
 #HSLIDE
+
+## Import hooks
+
+#HSLIDE
+
+## CLI LAUNCHER
+
+#VSLIDE
+
+## sitecustomize.py
+
+#VSLIDE
+
+## Import lock
+
+#HSLIDE
+
+## Deinstrumentation
+
+#VSLIDE
+
+## Extract the callbacks
 
 ## Bonus
 
