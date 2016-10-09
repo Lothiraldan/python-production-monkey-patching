@@ -1,8 +1,8 @@
 #HSLIDE
 
-## Pycon-fr
+## Pycon-fr 2016
 
-Python hot monkey-patching.
+Python monkey-patching in production.
 
 #VSLIDE
 
@@ -76,10 +76,51 @@ module.function = patcher(module.function)
 ```python
 >>> import monkey
 >>> import module
->>> monkey.function('a', 'b', c='d')
+>>> module.function('a', 'b', c='d')
 Patcher called with ('a', 'b') {'c': 'd'}
 Function called with ('a', 'b') {'c': 'd'}
 ```
+
+## Test bis
+
+```python
+>>> import module
+>>> import monkey
+>>> module.function('a', 'b', c='d')
+Patcher called with ('a', 'b') {'c': 'd'}
+Function called with ('a', 'b') {'c': 'd'}
+```
+
+#VSLIDE
+
+## Not so fast
+
+```python
+>>> from module import function
+>>> import monkey
+>>> function('a', 'b', c='d')
+Function called with ('a', 'b') {'c': 'd'}
+```
+
+## Why?
+
+```python
+>>> module = {'function': 'FUNCTION'}
+>>> function = module['function']
+>>> module['function'] = 'FUNCTION_WRAPPED'
+>>> print(function)
+FUNCTION
+>>> print(module['function'])
+FUNCTION_WRAPPED
+```
+
+#VSLIDE
+
+## Explanation
+
+Using setattr, we only replace the name of the function / method / class in the module. If someone get another reference (with `from module import function`), we will not replace it.
+
+#VSLIDE
 
 #HSLIDE
 
