@@ -135,6 +135,12 @@ There are some hacks around altering ```__code__``` attributes and retrieving re
 
 ## CLI LAUNCHER
 
+Sometimes, people prefer a CLI launcher instead of modifying their code.
+
+```bash
+sql-protect python myapp.py
+```
+
 #VSLIDE
 
 ## sitecustomize.py
@@ -142,6 +148,12 @@ There are some hacks around altering ```__code__``` attributes and retrieving re
 #VSLIDE
 
 ## Import lock
+
+#HSLIDE
+
+## C-defined classes
+
+Sometimes classes are defined in C, making ```setattr``` useless.
 
 #HSLIDE
 
