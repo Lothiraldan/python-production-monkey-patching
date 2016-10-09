@@ -52,6 +52,8 @@ def function(*args, **kwargs):
     print("Function called with", args, kwargs)
 ```
 
+#VSLIDE
+
 ## Monkey-patching
 
 File monkey.py:
@@ -66,6 +68,8 @@ def patcher(function):
 import module
 module.function = patcher(module.function)
 ```
+
+#VSLIDE
 
 ## Test
 
