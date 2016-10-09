@@ -87,7 +87,6 @@ Function called with ('a', 'b') {'c': 'd'}
 >>> import module
 >>> import monkey
 >>> module.function('a', 'b', c='d')
-Patcher called with ('a', 'b') {'c': 'd'}
 Function called with ('a', 'b') {'c': 'd'}
 ```
 
@@ -101,6 +100,8 @@ Function called with ('a', 'b') {'c': 'd'}
 >>> function('a', 'b', c='d')
 Function called with ('a', 'b') {'c': 'd'}
 ```
+
+#VSLIDE
 
 ## Why?
 
@@ -119,8 +120,6 @@ FUNCTION_WRAPPED
 ## Explanation
 
 Using setattr, we only replace the name of the function / method / class in the module. If someone get another reference (with `from module import function`), we will not replace it.
-
-#VSLIDE
 
 #HSLIDE
 
