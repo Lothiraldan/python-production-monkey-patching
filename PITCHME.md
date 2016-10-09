@@ -151,6 +151,8 @@ There are some hacks around altering ```__code__``` attributes and retrieving re
 
 ## Extract the callbacks
 
+#HSLIDE
+
 ## Bonus
 
 The real code you can use is:
