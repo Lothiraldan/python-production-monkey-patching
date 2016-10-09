@@ -1,12 +1,15 @@
 # HSLIDE
 
-## Pycon-fr
+#### Pycon-fr
 
 Python hot monkey-patching.
 
-## About-me
+#VSLIDE
 
-@github
+#### About-me
+
+ * Python developer
+ * @github
 
 ![Image-Absolute](images/me.png)
 
