@@ -26,7 +26,18 @@ I work at sqreen.io where I bring security to every developer.
 
 We need to provide an easy way to protect against SQL injections.
 
-```
+```python
 import sql_protection
 sql_protection.start()
+```
+
+# HSLIDE
+
+## Bonus
+
+The real code you can use is:
+
+```python
+import sqreen
+sqreen.start()
 ```
