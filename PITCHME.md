@@ -131,6 +131,54 @@ There are some hacks around altering ```__code__``` attributes and retrieving re
 
 ## Import hooks
 
+#VSLIDE
+
+## PEP
+
+https://www.python.org/dev/peps/pep-0302/
+
+## Python 2
+
+```python
+
+class Finder(object):
+
+    def __init__(self, module_name):
+        self.module_name = module_name
+
+    def find_module(self, fullname, path=None):
+        if fullname == self.module_name: 
+            return self
+        return
+
+    def load_module(self, fullname):
+        return custom_module(fullname)
+
+sys.meta_path.insert(0, Finder())
+```
+
+## Python 3
+
+```python
+from importlib.machinery import PathFinder, ModuleSpec, SourceFileLoader
+
+class Finder(PathFinder, SourceFileLoader):
+
+    def __init__(self, module_name):
+        self.module_name = module_name
+
+    def find_spec(self, fullname, path=None, target=None):
+        if fullname == self.module_name:
+            self.spec = super(Finder,self).find_spec(fullname, path, target)
+            return ModuleSpec(fullname, self)
+
+    def exec_module(self, module):
+        super(PyramidRouterLoader, self).exec_module(module)
+        return customize_module(module)
+
+sys.meta_path.insert(0, Finder())
+```
+
 #HSLIDE
 
 ## CLI LAUNCHER
