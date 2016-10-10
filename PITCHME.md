@@ -65,8 +65,9 @@ def patcher(function):
         return function(*args, **kwargs)
     return wrapper
 
-import module
-module.function = patcher(module.function)
+def patch():
+    import module
+    module.function = patcher(module.function)
 ```
 
 #VSLIDE
@@ -75,6 +76,7 @@ module.function = patcher(module.function)
 
 ```python
 >>> import monkey
+>>> monkey.patch()
 >>> import module
 >>> module.function('a', 'b', c='d')
 Patcher called with ('a', 'b') {'c': 'd'}
@@ -86,6 +88,7 @@ Function called with ('a', 'b') {'c': 'd'}
 ```python
 >>> import module
 >>> import monkey
+>>> monkey.patch()
 >>> module.function('a', 'b', c='d')
 Function called with ('a', 'b') {'c': 'd'}
 ```
@@ -97,6 +100,7 @@ Function called with ('a', 'b') {'c': 'd'}
 ```python
 >>> from module import function
 >>> import monkey
+>>> monkey.patch()
 >>> function('a', 'b', c='d')
 Function called with ('a', 'b') {'c': 'd'}
 ```
@@ -135,6 +139,8 @@ There are some hacks around altering ```__code__``` attributes and retrieving re
 
 ## PEP
 
+The idea is to use a `hook` to execute code just before a module is imported.
+
 https://www.python.org/dev/peps/pep-0302/
 
 #VSLIDE
@@ -154,9 +160,10 @@ class Finder(object):
         return
 
     def load_module(self, fullname):
-        return custom_module(fullname)
+        module = __import__(fullname)
+        return customize_module(module)
 
-sys.meta_path.insert(0, Finder())
+sys.meta_path.insert(0, Finder('sql'))
 ```
 
 #VSLIDE
@@ -166,21 +173,41 @@ sys.meta_path.insert(0, Finder())
 ```python
 from importlib.machinery import PathFinder, ModuleSpec, SourceFileLoader
 
-class Finder(PathFinder, SourceFileLoader):
+class Finder(PathFinder):
 
     def __init__(self, module_name):
         self.module_name = module_name
 
     def find_spec(self, fullname, path=None, target=None):
         if fullname == self.module_name:
-            self.spec = super(Finder,self).find_spec(fullname, path, target)
-            return ModuleSpec(fullname, self)
+            spec = super().find_spec(fullname, path, target)
+            return ModuleSpec(fullname, Loader(fullname, spec.origin))
+
+class Loader(SourceFileLoader):
 
     def exec_module(self, module):
-        super(PyramidRouterLoader, self).exec_module(module)
+        super().exec_module(module)
         return customize_module(module)
 
-sys.meta_path.insert(0, Finder())
+sys.meta_path.insert(0, Finder('sql'))
+```
+
+#VSLIDE
+
+## Sample import hook
+
+```python
+from importlib.machinery import PathFinder, ModuleSpec, SourceFileLoader
+
+def patcher(function):
+    def wrapper(*args, **kwargs):
+        print("Patcher called with", args, kwargs)
+        return function(*args, **kwargs)
+    return wrapper
+
+class CustomLoader(SourceFileLoader):
+
+
 ```
 
 #HSLIDE
