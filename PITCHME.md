@@ -274,7 +274,7 @@ Or do we?
 
 #VSLIDE
 
-# Real-use case with sqlite3
+## Real code
 
 File module.py:
 
