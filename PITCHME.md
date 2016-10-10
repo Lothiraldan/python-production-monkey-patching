@@ -90,6 +90,7 @@ Function called with ('a', 'b') {'c': 'd'}
 >>> import monkey
 >>> monkey.patch()
 >>> module.function('a', 'b', c='d')
+Patcher called with ('a', 'b') {'c': 'd'}
 Function called with ('a', 'b') {'c': 'd'}
 ```
 
@@ -148,7 +149,6 @@ https://www.python.org/dev/peps/pep-0302/
 ## Python 2
 
 ```python
-
 class Finder(object):
 
     def __init__(self, module_name):
@@ -171,7 +171,7 @@ sys.meta_path.insert(0, Finder('sql'))
 ## Python 3
 
 ```python
-from importlib.machinery import PathFinder, ModuleSpec, SourceFileLoader
+from importlib.machinery import PathFinder, ModuleSpec
 
 class Finder(PathFinder):
 
@@ -181,13 +181,7 @@ class Finder(PathFinder):
     def find_spec(self, fullname, path=None, target=None):
         if fullname == self.module_name:
             spec = super().find_spec(fullname, path, target)
-            return ModuleSpec(fullname, Loader(fullname, spec.origin))
-
-class Loader(SourceFileLoader):
-
-    def exec_module(self, module):
-        super().exec_module(module)
-        return customize_module(module)
+            return ModuleSpec(fullname, CustomLoader(fullname, spec.origin))
 
 sys.meta_path.insert(0, Finder('sql'))
 ```
@@ -197,7 +191,7 @@ sys.meta_path.insert(0, Finder('sql'))
 ## Sample import hook
 
 ```python
-from importlib.machinery import PathFinder, ModuleSpec, SourceFileLoader
+from importlib.machinery import SourceFileLoader
 
 def patcher(function):
     def wrapper(*args, **kwargs):
@@ -207,7 +201,10 @@ def patcher(function):
 
 class CustomLoader(SourceFileLoader):
 
-
+    def exec_module(self, module):
+        super().exec_module(module)
+        module.function = patcher(function)
+        return module
 ```
 
 #HSLIDE

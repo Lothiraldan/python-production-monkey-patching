@@ -4,5 +4,7 @@ def patcher(function):
         return function(*args, **kwargs)
     return wrapper
 
-import module
-module.function = patcher(module.function)
+
+def patch():
+    import module
+    module.function = patcher(module.function)
