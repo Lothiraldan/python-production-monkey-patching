@@ -189,7 +189,7 @@ sys.meta_path.insert(0, Finder('sql'))
 
 #VSLIDE
 
-## Sample import hook
+## Python 3 - II
 
 ```python
 from importlib.machinery import SourceFileLoader
