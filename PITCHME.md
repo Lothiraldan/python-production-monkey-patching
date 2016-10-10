@@ -181,7 +181,8 @@ class Finder(PathFinder):
     def find_spec(self, fullname, path=None, target=None):
         if fullname == self.module_name:
             spec = super().find_spec(fullname, path, target)
-            return ModuleSpec(fullname, CustomLoader(fullname, spec.origin))
+            return ModuleSpec(fullname,
+                              CustomLoader(fullname, spec.origin))
 
 sys.meta_path.insert(0, Finder('sql'))
 ```
