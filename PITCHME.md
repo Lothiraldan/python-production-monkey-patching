@@ -192,8 +192,8 @@ class Finder(PathFinder):
     def find_spec(self, fullname, path=None, target=None):
         if fullname == self.module_name:
             spec = super().find_spec(fullname, path, target)
-            return ModuleSpec(fullname,
-                              CustomLoader(fullname, spec.origin))
+            loader = CustomLoader(fullname, spec.origin)
+            return ModuleSpec(fullname, loader)
 
 sys.meta_path.insert(0, Finder('module'))
 ```
@@ -248,8 +248,8 @@ class Finder(PathFinder):
     def find_spec(self, fullname, path=None, target=None):
         if fullname == self.module_name:
             spec = super().find_spec(fullname, path, target)
-            return ModuleSpec(fullname,
-                              CustomLoader(fullname, spec.origin))
+            loader = CustomLoader(fullname, spec.origin)
+            return ModuleSpec(fullname, loader)
 
 def patch():
     sys.meta_path.insert(0, Finder('module'))
@@ -336,8 +336,7 @@ Traceback (most recent call last):
     super().exec_module(module)
   File ".../sqlite3/__init__.py", line 23, in <module>
     from sqlite3.dbapi2 import *
-ImportError: No module named 'sqlite3.dbapi2';
-'sqlite3' is not a package
+ImportError: No module named 'sqlite3.dbapi2'; 'sqlite3' is not a package
 ```
 
 #VSLIDE
@@ -369,8 +368,7 @@ Traceback (most recent call last):
   File "<frozen importlib._bootstrap>", line 673, in _load_unlocked
   File ".../monkey.py", line 16, in exec_module
     module.Cursor.execute = patcher(module.Cursor.execute)
-TypeError: can't set attributes of built-in/extension type
-'sqlite3.Cursor'
+TypeError: can't set attributes of built-in/extension type 'sqlite3.Cursor'
 ```
 
 #HSLIDE
@@ -388,8 +386,7 @@ With user-defined class, we can override everything we wants, but with built-in 
 >>> Cursor.execute = lambda *args, **kwargs: 42
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
-TypeError: can't set attributes of built-in/extension type
-'sqlite3.Cursor'
+TypeError: can't set attributes of built-in/extension type 'sqlite3.Cursor'
 ```
 
 #VSLIDE
@@ -403,8 +400,7 @@ We can bypass the problem by patching the method that returns a Cursor, it is th
 >>> Connection.cursor = lambda *args, **kwargs: 42
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
-TypeError: can't set attributes of built-in/extension type
-'sqlite3.Connection'
+TypeError: can't set attributes of built-in/extension type 'sqlite3.Connection'
 ```
 
 #VSLIDE
