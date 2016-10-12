@@ -652,6 +652,8 @@ Last requirement, we might want as some point to deactivate our patcher.
 
 It's not possible to replace the original methods on `Connection` instances and `Cursor` instances dynamically. But we can extract our custom code from the patch:
 
+#VSLIDE
+
 ```python
 def wrapper(*args, **kwargs):
     print("Patcher called with", args, kwargs)
