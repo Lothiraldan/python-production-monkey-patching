@@ -45,6 +45,8 @@ sql_protection.start()
 
 ## This slidedeck is Python3 compatible!
 
+<img src="images/python3.png" height="400"/>
+
 #HSLIDE
 
 ## First try - setattr
