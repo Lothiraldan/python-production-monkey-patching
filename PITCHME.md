@@ -526,8 +526,9 @@ sql-protect gunicorn myapp.py
 ## Quite easily
 
 ```python
-import sys
 import os
+import sys
+
 os.execvpe(sys.argv[1:])
 ```
 
@@ -537,29 +538,28 @@ os.execvpe(sys.argv[1:])
 
 #VSLIDE
 
-## Long story short, it don't work.
+## Long story short, it doesn't work.
 
 `os.execvpe` replace the current process with a new one, all memory is destroyed.
 
 #VSLIDE
 
-## How to execute code in gunicorn
+## How to execute code in gunicorn then?
 
 #VSLIDE
 
-## There is one to execute code before anything in Python
+## There is one way
 
 ```python
 $> python -v
 import _frozen_importlib # frozen
 import _imp # builtin
-import sys # builtin
 ...
 import 'sitecustomize' # ... <-
 import 'site' # ...
 Python 3.5.2 (default, Sep 28 2016, 18:08:09)
-[GCC 4.2.1 Compatible Apple LLVM 8.0.0 (clang-800.0.38)] on darwin
 Type "help", "copyright", "credits" or "license" for more information.
+>>>
 ```
 
 #VSLIDE
@@ -606,6 +606,7 @@ os.execvpe(sys.argv[1], sys.argv[1:], environ)
 Same content as previously in monkey.py, but with a new line at the end:
 
 ```python
+...
 def patch():
     sys.meta_path.insert(0, Finder('sqlite3.dbapi2'))
 
