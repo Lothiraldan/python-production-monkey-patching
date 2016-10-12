@@ -148,7 +148,7 @@ There are some hacks around altering ```__code__``` attributes and retrieving re
 
 The idea is to use a `hook` to execute code just before a module is imported.
 
-https://www.python.org/dev/peps/pep-0302/
+https://www.python.org/dev/peps/pep-0249/
 
 #VSLIDE
 
