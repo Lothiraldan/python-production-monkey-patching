@@ -630,15 +630,74 @@ Patcher called with ('SELECT 1;',) {}
 
 #VSLIDE
 
+## What does it change?
+
+Inside `sitecustomize.py`, we're basically executing code during an import, so we can encounter various problems.
+
+#VSLIDE
+
 ## Import lock
+
+For example, if you spawn a thread, you'll not be able to import a module in python 2 because the import lock will be held by the main thread. See https://blog.sqreen.io/freeze-python-str-encode-threads/ for more details.
 
 #HSLIDE
 
 ## Deinstrumentation
 
+Last requirement, we might want as some point to deactivate our patcher.
+
 #VSLIDE
 
-## Extract the callbacks
+## Extract the patcher
+
+It's not possible to replace the original methods on `Connection` instances and `Cursor` instances dynamically. But we can extract our custom code from the patch:
+
+```python
+def wrapper(*args, **kwargs):
+    print("Patcher called with", args, kwargs)
+
+WRAPPERS = [wrapper]
+
+def patcher(function):
+    def wrapper(*args, **kwargs):
+        globals WRAPPERS
+        for function in WRAPPERS:
+            function(*args, **kwargs)
+
+        return function(*args, **kwargs)
+    return wrapper
+```
+
+#VSLIDE
+
+## restore
+
+This way we can easily add a `restore` function:
+
+```python
+def restore():
+    global WRAPPERS
+    WRAPPERS = []
+```
+
+#VSLIDE
+
+```python
+>>> import module
+>>> module.query('SELECT 1;')
+Patcher called with ('SELECT 1;',) {}
+(1,)
+>>> import sitecustomize
+>>> sitecustomize.restore()
+>>> module.query('SELECT 1;')
+(1,)
+```
+
+#HSLIDE
+
+## Conclusion
+
+Monkey-patching Python dynamically is hard to do but still feasible.
 
 #HSLIDE
 
@@ -650,3 +709,9 @@ The real code you can use is:
 import sqreen
 sqreen.start()
 ```
+
+#HSLIDE
+
+## Questions
+
+![Image-Relative](https://media.giphy.com/media/xT5LMWh6mZ9FgVuy0o/giphy.gif)
