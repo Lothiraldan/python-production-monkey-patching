@@ -648,11 +648,15 @@ Last requirement, we might want as some point to deactivate our patcher.
 
 #VSLIDE
 
-## Extract the patcher
+## Restoration
 
-It's not possible to replace the original methods on `Connection` instances and `Cursor` instances dynamically. But we can extract our custom code from the patch:
+It's not possible to replace the original methods on `Connection` instances and `Cursor` instances dynamically.
 
 #VSLIDE
+
+## Split the code
+
+But we can extract our custom code from the patch:
 
 ```python
 def wrapper(*args, **kwargs):
