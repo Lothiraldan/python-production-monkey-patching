@@ -330,13 +330,14 @@ def patch():
 >>> import module
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
-  File ".../code/import_hook_sqlite3/module.py", line 1, in <module>
+  File ".../module.py", line 1, in <module>
     import sqlite3
-  File ".../code/import_hook_sqlite3/monkey.py", line 15, in exec_module
+  File ".../monkey.py", line 15, in exec_module
     super().exec_module(module)
   File ".../sqlite3/__init__.py", line 23, in <module>
     from sqlite3.dbapi2 import *
-ImportError: No module named 'sqlite3.dbapi2'; 'sqlite3' is not a package
+ImportError: No module named 'sqlite3.dbapi2';
+'sqlite3' is not a package
 ```
 
 #VSLIDE
@@ -359,7 +360,7 @@ def patch():
 >>> import module
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
-  File ".../code/import_hook_sqlite3/module.py", line 1, in <module>
+  File ".../module.py", line 1, in <module>
     import sqlite3
   File ".../sqlite3/__init__.py", line 23, in <module>
     from sqlite3.dbapi2 import *
@@ -368,7 +369,8 @@ Traceback (most recent call last):
   File "<frozen importlib._bootstrap>", line 673, in _load_unlocked
   File ".../monkey.py", line 16, in exec_module
     module.Cursor.execute = patcher(module.Cursor.execute)
-TypeError: can't set attributes of built-in/extension type 'sqlite3.Cursor'
+TypeError: can't set attributes of built-in/extension type
+'sqlite3.Cursor'
 ```
 
 #HSLIDE
@@ -386,7 +388,8 @@ With user-defined class, we can override everything we wants, but with built-in 
 >>> Cursor.execute = lambda *args, **kwargs: 42
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
-TypeError: can't set attributes of built-in/extension type 'sqlite3.Cursor'
+TypeError: can't set attributes of built-in/extension type
+'sqlite3.Cursor'
 ```
 
 #VSLIDE
@@ -400,7 +403,8 @@ We can bypass the problem by patching the method that returns a Cursor, it is th
 >>> Connection.cursor = lambda *args, **kwargs: 42
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
-TypeError: can't set attributes of built-in/extension type 'sqlite3.Connection'
+TypeError: can't set attributes of built-in/extension type
+'sqlite3.Connection'
 ```
 
 #VSLIDE
