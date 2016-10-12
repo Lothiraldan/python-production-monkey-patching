@@ -506,12 +506,126 @@ Patcher called with ('SELECT 1;',) {}
 Sometimes, people prefer a CLI launcher instead of modifying their code.
 
 ```bash
-sql-protect python myapp.py
+sql-protect gunicorn myapp.py
 ```
 
 #VSLIDE
 
-## sitecustomize.py
+## How to execute code before the main app?
+
+#VSLIDE
+
+## We can setup import hooks now but then we must launch gunicorn
+
+#VSLIDE
+
+## How to execute gunicorn after setting the import hooks?
+
+#VSLIDE
+
+## Quite easily
+
+```python
+import sys
+import os
+os.execvpe(sys.argv[1:])
+```
+
+#VSLIDE
+
+## Let's try to setup import hooks then exec
+
+#VSLIDE
+
+## Long story short, it don't work.
+
+`os.execvpe` replace the current process with a new one, all memory is destroyed.
+
+#VSLIDE
+
+## How to execute code in gunicorn
+
+#VSLIDE
+
+## There is one to execute code before anything in Python
+
+```python
+$> python -v
+import _frozen_importlib # frozen
+import _imp # builtin
+import sys # builtin
+...
+import 'sitecustomize' # ... <-
+import 'site' # ...
+Python 3.5.2 (default, Sep 28 2016, 18:08:09)
+[GCC 4.2.1 Compatible Apple LLVM 8.0.0 (clang-800.0.38)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+```
+
+#VSLIDE
+
+## site and sitecustomize modules
+
+`site` is automatically imported by Python at startup to setup some search paths. It's in the standard library.
+After importing `site`, Python try to import the module `sitecustomize`, it's not present by default but could be created and would be imported automatically.
+
+#VSLIDE
+
+## Caveat
+
+The `sitecustomize.py` must be present somewhere in the search paths of Python.
+
+#VSLIDE
+
+## Here is the trick
+
+But we can customize these paths with the environment variable `PYTHONPATH`!
+
+#VSLIDE
+
+## Final cli helper
+
+File `sql-protect`:
+
+```python
+#!/usr/bin/env python
+
+import sys
+import os
+from os.path import curdir, realpath
+
+environ = os.environ
+environ['PYTHONPATH'] = realpath(curdir)
+os.execvpe(sys.argv[1], sys.argv[1:], environ)
+```
+
+#VSLIDE
+
+## Final sitecustomize.py
+
+Same content as previously in monkey.py, but with a new line at the end:
+
+```python
+def patch():
+    sys.meta_path.insert(0, Finder('sqlite3.dbapi2'))
+
+patch()
+```
+
+#VSLIDE
+
+## Test it
+
+```python
+$> ./sql-protect python
+Python 3.5.1 (default, Jan 22 2016, 08:54:32)
+[GCC 4.2.1 Compatible Apple LLVM 7.0.2 (clang-700.1.81)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import module
+>>> module.query('SELECT 1;')
+Patcher called with ('SELECT 1;',) {}
+(1,)
+```
 
 #VSLIDE
 
