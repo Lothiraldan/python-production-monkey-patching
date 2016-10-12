@@ -373,7 +373,129 @@ TypeError: can't set attributes of built-in/extension type 'sqlite3.Cursor'
 
 ## C-defined classes
 
-Sometimes classes are defined in C, making ```setattr``` useless.
+With user-defined class, we can override everything we wants, but with built-in or extension defined class, it's much more harder.
+
+#VSLIDE
+
+## Setattr useless
+
+```python
+>>> from sqlite3.dbapi2 import Cursor
+>>> Cursor.execute = lambda *args, **kwargs: 42
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: can't set attributes of built-in/extension type 'sqlite3.Cursor'
+```
+
+#VSLIDE
+
+## Parent
+
+We can bypass the problem by patching the method that returns a Cursor, it is the `Connection.cursor` method.
+
+```python
+>>> from sqlite3.dbapi2 import Cursor
+>>> Connection.cursor = lambda *args, **kwargs: 42
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: can't set attributes of built-in/extension type 'sqlite3.Connection'
+```
+
+#VSLIDE
+
+## The grand-parent
+
+As we can't override `Connection` methods either, we need to patch the function that returns a `Connection`, it is `connect`:
+
+```python
+>>> import sqlite3
+>>> sqlite3.connect = lambda *args, **kwargs: 42
+>>> sqlite3.connect('db.sqlite')
+42
+```
+
+#VSLIDE
+
+## DBApi2
+
+Luckily for us, every SQL driver follow the DBApi2 defined in pep 249 https://www.python.org/dev/peps/pep-0302/.
+
+The DBApi2 defines the current interface:
+
+```python
+from sql_driver import connect
+connection = connect(...)
+cursor = connection.cursor()
+cursor.execute(sql_query)
+row = cursor.fetchone()
+```
+
+#VSLIDE
+
+## Work to do
+
+So we need to patch `connect`, `Connection.cursor` and `Cursor.execute`.
+
+#VSLIDE
+
+## Cursor
+
+```python
+class CursorProxy(object):
+    def __init__(self, cursor):
+        self.cursor = cursor
+
+        self.execute = patcher(self.cursor.execute)
+
+    def __getattr__(self, key):
+        return getattr(self.cursor, key)
+```
+
+#VSLIDE
+
+## Connection
+
+```python
+class ConnectionProxy(object):
+    def __init__(self, connection):
+        self.connection = connection
+
+    def cursor(self, *args, **kwargs):
+        real_cursor = self.connection.cursor(*args, **kwargs)
+        return CursorProxy(real_cursor)
+
+    def __getattr__(self, key):
+        return getattr(self.cursor, key)
+```
+
+#VSLIDE
+
+## connect
+
+```python
+def patch_connect(real_connect):
+    def connect(*args, **kwargs):
+        real_connection = real_connect(*args, **kwargs)
+        return ConnectionProxy(real_connection)
+    return connect
+```
+
+#VSLIDE
+
+## Test
+
+```python
+>>> import monkey
+>>> monkey.patch()
+>>> import module
+>>> module.query("SELECT 1;")
+Patcher called with ('SELECT 1;',) {}
+(1,)
+```
+
+#VSLIDE
+
+# HOURAY!
 
 #HSLIDE
 
