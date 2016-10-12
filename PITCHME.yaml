@@ -1,1 +1,2 @@
 mathjax : TeX-AMS_HTML-full
+theme-override : assets/css/PITCHME.css
