@@ -39,10 +39,6 @@ sql_protection.start()
 
 #HSLIDE
 
-## Monkey-patching in production 101
-
-#HSLIDE
-
 ## This slidedeck is Python3 compatible!
 
 <img src="images/python3.png" height="400"/>
