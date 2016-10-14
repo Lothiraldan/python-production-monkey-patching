@@ -4,6 +4,8 @@
 
 Python monkey-patching in production.
 
+<img src="images/monkey.jpg" height="400"/>
+
 #VSLIDE
 
 ## About-me @lothiraldan
@@ -42,12 +44,6 @@ sql_protection.start()
 ## This slidedeck is Python3 compatible!
 
 <img src="images/python3.png" height="400"/>
-
-#HSLIDE
-
-## Python monkey-patching 101
-
-<img src="images/monkey.jpg" height="400"/>
 
 #HSLIDE
 
@@ -130,6 +126,8 @@ FUNCTION
 FUNCTION_WRAPPED
 ```
 
+TODO: Add SCHEMA
+
 #VSLIDE
 
 ## Explanation
@@ -153,6 +151,10 @@ There are some hacks around altering ```__code__``` attributes and retrieving re
 The idea is to use a `hook` to execute code just before a module is imported.
 
 https://www.python.org/dev/peps/pep-0249/
+
+#VSLIDE
+
+TODO: Add schema about import mechanisms
 
 #VSLIDE
 
