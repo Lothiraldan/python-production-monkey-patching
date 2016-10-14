@@ -178,7 +178,15 @@ https://www.python.org/dev/peps/pep-0249/
 
 #VSLIDE
 
-TODO: Add schema about import mechanisms
+## Import mechanism
+
+<img src="images/import_module.png">
+
+#VSLIDE
+
+## Meta path
+
+<img src="images/meta_path.png">
 
 #VSLIDE
 
