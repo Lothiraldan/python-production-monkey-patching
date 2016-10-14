@@ -484,6 +484,23 @@ def patch_connect(real_connect):
 
 #VSLIDE
 
+## Monkey file
+
+```python
+...
+class CustomLoader(SourceFileLoader):
+
+    def exec_module(self, module):
+        super().exec_module(module)
+        module.connect = patch_connect(module.connect)
+        return module
+...
+def patch():
+    sys.meta_path.insert(0, Finder('sqlite3.dbapi2'))
+```
+
+#VSLIDE
+
 ## Test
 
 ```python
