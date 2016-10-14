@@ -45,6 +45,12 @@ sql_protection.start()
 
 #HSLIDE
 
+## Python monkey-patching 101
+
+<img src="images/monkey.jpg" height="400"/>
+
+#HSLIDE
+
 ## First try - setattr
 
 File module.py:
