@@ -560,15 +560,15 @@ sql-protect gunicorn myapp.py
 
 #VSLIDE
 
-## We can setup import hooks now but then we must launch gunicorn
+```python
+setup_hook()
+
+launch_sub_program()
+```
 
 #VSLIDE
 
-## How to execute gunicorn after setting the import hooks?
-
-#VSLIDE
-
-## Quite easily
+## launch_sub_program
 
 ```python
 import os
