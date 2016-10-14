@@ -422,7 +422,7 @@ As we can't override `Connection` methods either, we need to patch the function 
 
 ## DBApi2
 
-Luckily for us, every SQL driver follow the DBApi2 defined in pep 249 https://www.python.org/dev/peps/pep-0302/.
+Luckily for us, every SQL driver follow the DBApi2 defined in pep 309 https://www.python.org/dev/peps/pep-0302/.
 
 The DBApi2 defines the current interface:
 
