@@ -127,7 +127,7 @@ Function called with ('a', 'b') {'c': 'd'}
 ## Analysis
 
 ```python
->>> function = module.function
+>>> function = module.function # Equivalent to from module import function
 ```
 
 <img src="images/step02.png">
