@@ -117,16 +117,40 @@ Function called with ('a', 'b') {'c': 'd'}
 ## Why?
 
 ```python
->>> module = {'function': 'FUNCTION'}
->>> function = module['function']
->>> module['function'] = 'FUNCTION_WRAPPED'
->>> print(function)
-FUNCTION
->>> print(module['function'])
-FUNCTION_WRAPPED
+>>> import module
 ```
 
-TODO: Add SCHEMA
+<img src="images/step01.png">
+
+#VSLIDE
+
+## Analysis
+
+```python
+>>> function = module.function
+```
+
+<img src="images/step02.png">
+
+#VSLIDE
+
+## Analysis
+
+```python
+>>> module.function = lambda *args, **kwargs: 42
+```
+
+<img src="images/step02.png">
+
+#VSLIDE
+
+## Analysis
+
+```python
+>>> patched_function = module.function
+```
+
+<img src="images/step03.png">
 
 #VSLIDE
 
