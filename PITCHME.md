@@ -170,6 +170,8 @@ There are some hacks around altering ```__code__``` attributes and retrieving re
 
 ## Import hooks
 
+<img src="images/hooks.gif" />
+
 #VSLIDE
 
 ## PEP
@@ -311,6 +313,8 @@ Function called with ('a', 'b') {'c': 'd'}
 ## We dit it!
 
 Or do we?
+
+<img src="images/confused.gif" />
 
 #VSLIDE
 
