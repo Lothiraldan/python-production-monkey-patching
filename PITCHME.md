@@ -100,6 +100,8 @@ Function called with ('a', 'b') {'c': 'd'}
 
 ## Done, not so hard!
 
+<img src="images/soeasy.gif" />
+
 #VSLIDE
 
 ## Not so fast
