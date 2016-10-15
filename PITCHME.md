@@ -376,7 +376,7 @@ Function called with ('a', 'b') {'c': 'd'}
 
 Or do we?
 
-<img src="images/confused.gif" />
+<img src="images/confused.gif" width="600px" />
 
 #VSLIDE
 
@@ -665,7 +665,7 @@ os.execvpe(sys.argv[1:])
 
 #VSLIDE
 
-## How to execute code in gunicorn then?
+## How to launch gunicorn and execute code just before it start?
 
 #VSLIDE
 
