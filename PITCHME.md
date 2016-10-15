@@ -184,6 +184,12 @@ https://www.python.org/dev/peps/pep-0249/
 
 ## Import mechanism
 
+<img src="images/brace.jpg">
+
+#VSLIDE
+
+## In details
+
 <img src="images/import_module.png">
 
 #VSLIDE
