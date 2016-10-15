@@ -252,9 +252,7 @@ new_module = loader.load_module('module')
 
 #VSLIDE
 
-## Meta path
-
-<img src="images/meta_path.png">
+## How to write module finders and loaders?
 
 #VSLIDE
 
