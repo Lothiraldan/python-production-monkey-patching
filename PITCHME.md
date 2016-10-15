@@ -106,7 +106,7 @@ Function called with ('a', 'b') {'c': 'd'}
 
 ## Done, not so hard!
 
-<img src="images/soeasy.gif" />
+<img src="images/soeasy.gif" width="600px" />
 
 #VSLIDE
 
@@ -378,7 +378,7 @@ Or do we?
 
 <img src="images/confused.gif" width="600px" />
 
-#VSLIDE
+#HSLIDE
 
 ## Real code
 
@@ -619,6 +619,8 @@ Patcher called with ('SELECT 1;',) {}
 #VSLIDE
 
 # HOURAY!
+
+<img src="/images/happy.gif" width="400px" />
 
 #HSLIDE
 
