@@ -35,15 +35,15 @@ sql_protection.start()
 
 #HSLIDE
 
-## My first reaction
-
-<img src="images/fry.png">
-
-#HSLIDE
-
 ## This slidedeck is Python3 compatible!
 
 <img src="images/python3.png" height="400"/>
+
+#HSLIDE
+
+## My first reaction
+
+<img src="images/fry.png">
 
 #HSLIDE
 
