@@ -192,6 +192,8 @@ https://www.python.org/dev/peps/pep-0249/
 
 <img src="images/import_module.png" height=400px style="-webkit-clip-path: inset(0% 0% 50% 0%);">
 
+#VSLIDE
+
 ## In details II
 
 <img src="images/import_module.png" height=400px style="-webkit-clip-path: inset(50% 0% 0% 0%);">
