@@ -24,6 +24,12 @@ I work at sqreen.io where we bring security to every developer.
 
 #HSLIDE
 
+## Source code is available online
+
+https://github.com/Lothiraldan/python-production-monkey-patching
+
+#HSLIDE
+
 ## This slidedeck is Python3 compatible!
 
 <img src="images/python3.png" height="400"/>
@@ -188,15 +194,61 @@ https://www.python.org/dev/peps/pep-0249/
 
 #VSLIDE
 
-## In details
+## Import mechanism
 
-<img src="images/import_module.png" height=400px style="-webkit-clip-path: inset(0% 0% 50% 0%);">
+```python
+import module
+```
+
+```python
+importlib.import_module('module')
+```
 
 #VSLIDE
 
-## In details II
+## Sys.modules cache
 
-<img src="images/import_module.png" height=400px style="-webkit-clip-path: inset(50% 0% 0% 0%);">
+```python
+if 'module' in sys.modules:
+    return sys.modules['module']
+```
+
+#VSLIDE
+
+## Sys.meta_path Finder
+
+```python
+loader = None
+for finder in sys.meta_path:
+    loader = finder.find_module('module')
+
+    if loader is not None:
+        break
+```
+
+#VSLIDE
+
+## Default meta paths
+
+There is 3:
+
+* importlib.machinery.BuiltinImporter: An importer for built-in modules
+* importlib.machinery.FrozenImporter: An importer for frozen modules
+* importlib.machinery.PathFinder: A Finder for sys.path
+
+#VSLIDE
+
+## Sys.meta_path Loader
+
+```python
+new_module = loader.load_module('module')
+```
+
+#VSLIDE
+
+## Default loaders
+
+* importlib.machinery.SourceFileLoader: A module loader that reads file.
 
 #VSLIDE
 
