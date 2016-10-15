@@ -479,7 +479,7 @@ TypeError: can't set attributes of built-in/extension type 'sqlite3.Cursor'
 
 ## C-defined classes
 
-With user-defined class, we can override everything we wants, but with built-in or extension defined class, it's much more harder.
+Somes classes are defined in C and are not alterable at runtime.
 
 #VSLIDE
 
