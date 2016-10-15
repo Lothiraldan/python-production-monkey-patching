@@ -547,7 +547,7 @@ So we need to patch `connect`, `Connection.cursor` and `Cursor.execute`.
 ## Cursor
 
 ```python
-class CursorProxy(object):
+class CursorProxy():
     def __init__(self, cursor):
         self.cursor = cursor
 
@@ -562,7 +562,7 @@ class CursorProxy(object):
 ## Connection
 
 ```python
-class ConnectionProxy(object):
+class ConnectionProxy():
     def __init__(self, connection):
         self.connection = connection
 
