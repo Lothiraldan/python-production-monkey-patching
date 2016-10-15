@@ -24,6 +24,12 @@ I work at sqreen.io where we bring security to every developer.
 
 #HSLIDE
 
+## This slidedeck is Python3 compatible!
+
+<img src="images/python3.png" height="400"/>
+
+#HSLIDE
+
 ## Need
 
 We need to provide an easy way to protect against SQL injections.
@@ -32,12 +38,6 @@ We need to provide an easy way to protect against SQL injections.
 import sql_protection
 sql_protection.start()
 ```
-
-#HSLIDE
-
-## This slidedeck is Python3 compatible!
-
-<img src="images/python3.png" height="400"/>
 
 #HSLIDE
 
