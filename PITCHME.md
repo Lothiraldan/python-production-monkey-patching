@@ -646,6 +646,12 @@ launch_sub_program()
 
 #VSLIDE
 
+## Exec system call
+
+>exec is a functionality of an operating system that runs an executable file in the context of an already existing process, replacing the previous executable.
+
+#VSLIDE
+
 ## launch_sub_program
 
 ```python
