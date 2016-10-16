@@ -410,7 +410,7 @@ def query(query):
 
 #VSLIDE
 
-## What module should we hook?
+## What module should we hook on?
 
 ```python
 >>> import sqlite3
