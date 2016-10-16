@@ -47,6 +47,14 @@ sql_protection.start()
 
 #HSLIDE
 
+## Monkey-patching
+
+>If it walks like a duck and talks like a duck, it’s a duck, right?
+
+>The term monkey patch refers to dynamic modifications of a class or module at runtime.
+
+#HSLIDE
+
 ## My first reaction
 
 <img src="images/fry.png">
