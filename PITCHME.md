@@ -51,7 +51,7 @@ sql_protection.start()
 
 >If it walks like a duck and talks like a duck, it’s a duck, right?
 
->The term monkey patch refers to dynamic modifications of a class or module at runtime.
+The term monkey patch refers to dynamic modifications of a class or module at runtime.
 
 #HSLIDE
 
@@ -82,7 +82,13 @@ def patcher(function):
         print("Patcher called with", args, kwargs)
         return function(*args, **kwargs)
     return wrapper
+```
 
+#VSLIDE
+
+## Monkey-patching
+
+```python
 def patch():
     import module
     module.function = patcher(module.function)
